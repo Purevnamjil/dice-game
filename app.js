@@ -35,20 +35,48 @@ document.querySelector(".btn-roll").addEventListener("click", function() {
     document.getElementById("current-" + activePlayer).textContent = roundScore;
   } else {
     //1 гарвал
-
-    //ээлжиндээ цуглуулсан тоглогчийн оноог 0 болгоно.
-    roundScore = 0;
-    document.getElementById("current-" + activePlayer).textContent = 0;
-
-    //шоог түр алга болгоно.
-    diceDom.style.display = "none";
-
-    // Идвэхтэй тоглогч 0 байвал идэвхтэй тоглогчийг 1 болго.
-    // үгүй бол 0 болго.
-    activePlayer === 0 ? (activePlayer = 1) : (activePlayer = 0);
-
-    //active тоглогчийг солино.
-    document.querySelector(".player-0-panel").classList.toggle("active");
-    document.querySelector(".player-1-panel").classList.toggle("active");
+    checkWinner();
   }
 });
+
+// hold товчны эвент листенер
+document.querySelector(".btn-hold").addEventListener("click", function() {
+  //Одоогоор цуглуулсан оноог нийт оноонд нэмж өгөх
+  scores[activePlayer] = scores[activePlayer] + roundScore;
+
+  //Дэлгэц дээр оноог нь өөрчилнө.
+  document.getElementById("score-" + activePlayer).textContent =
+    scores[activePlayer];
+
+  //хожсон эсэхийг шалгах
+  checkWinner();
+});
+
+function checkWinner() {
+  if (scores[activePlayer] >= 10) {
+    document.getElementById("name-" + activePlayer).textContent = "WINNER!!!";
+    document
+      .querySelector(".player-" + activePlayer + "-panel")
+      .classList.add(Winner);
+  } else {
+    switchToNextPlayer();
+  }
+}
+
+//Энэ функц нь тоглох ээлжийг дараагийн тоглогч руу шилжүүлдэг.
+function switchToNextPlayer() {
+  //ээлжиндээ цуглуулсан тоглогчийн оноог 0 болгоно.
+  roundScore = 0;
+  document.getElementById("current-" + activePlayer).textContent = 0;
+
+  //шоог түр алга болгоно.
+  diceDom.style.display = "none";
+
+  // Идвэхтэй тоглогч 0 байвал идэвхтэй тоглогчийг 1 болго.
+  // үгүй бол 0 болго.
+  activePlayer === 0 ? (activePlayer = 1) : (activePlayer = 0);
+
+  //active тоглогчийг солино.
+  document.querySelector(".player-0-panel").classList.toggle("active");
+  document.querySelector(".player-1-panel").classList.toggle("active");
+}
