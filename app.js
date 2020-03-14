@@ -8,21 +8,19 @@ var scores = [0, 0];
 var roundScore = 0;
 
 // Шооны аль талаар буусныг хадгалах хувьсагч 1-6 гэсэн утгыг энэ хувьсагчид санмсаргүйгээр үүсгэж өгнө.
-var dice = Math.floor(Math.random() * 6) + 1;
-
-// window.document.querySelector("#score-0").textContent = dice;
-
-// window.document.querySelector("#score-1").innerHTML = "<em> 'boldoo' </em>";
 
 // Программ эхлэхэд бэлтгэе
-window.document.querySelector(".dice").style.display = "none";
 
-window.document.querySelector("#score-0").textContent = 0;
+document.getElementById("score-0").textContent = 0;
+document.getElementById("score-1").innerHTML = 0;
+document.getElementById("current-0").textContent = 0;
+document.getElementById("current-1").innerHTML = 0;
 
-window.document.querySelector("#score-1").innerHTML = 0;
+var diceDom = document.querySelector(".dice");
 
-window.document.querySelector("#current-0").textContent = 0;
+document.querySelector(".btn-roll").addEventListener("click", function() {
+  var diceNumber = Math.floor(Math.random() * 6) + 1;
 
-window.document.querySelector("#current-1").innerHTML = 0;
-
-console.log("Шоо:" + dice);
+  diceDom.style.display = "block";
+  diceDom.src = "dice-" + diceNumber + ".png";
+});
